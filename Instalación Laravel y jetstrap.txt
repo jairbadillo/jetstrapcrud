@@ -1,0 +1,36 @@
+/////////---  Instructivo de instalación de Laravel, jetstrap(Livewire y Bootstrap) ---/////////
+Laravel v8.83.26 (PHP v7.4.22)
+node 16.13.2
+npm 9.1.2
+
+Ejecute los siguientes pasos:
+1) laravel new jetstrap
+2) composer require laravel/jetstream
+3) php artisan jetstream:install livewire / php artisan jetstream:install livewire --teams
+4) composer require nascent-africa/jetstrap --dev
+5) php artisan jetstrap:swap livewire --teams
+6) npm install
+7) npm run dev
+Error:
+	Additional dependencies must be installed. This will only take a moment.
+	Running: npm install sass-loader@^12.1.0 sass resolve-url-loader@^5.0.0 --save-dev --legacy-peer-deps
+	Finished. Please run Mix again.
+Solució: Repetir npm run dev
+
+Error:
+	ERROR in ./resources/sass/app.scss
+	Module build failed (from ./node_modules/mini-css-extract-plugin/dist/loader.js):
+	ModuleBuildError: Module build failed (from ./node_modules/postcss-loader/dist/cjs.js):
+	TypeError: Cannot read properties of undefined (reading 'config')
+Solución: Abrir el archivo postcss.config.js (Esta en la raiz del proyecto) y modificar asi:
+	module.exports = {
+	    plugins: {
+	        // tailwindcss: {},
+        	// autoprefixer: {},
+	    },
+	};
+	y repetir npm run dev, tambien verifique que exista el archivo app.css en la ruta: "public/css/app.css"
+8) php artisan migrate
+9) Modificar los siguientes archivos: "resources/views/layouts/app.blade.php" y "resources/views/layouts/guest.blade.php" y reemplazar dentro del archivo donde dice "mix" por "asset" tanto en el styles como en script.
+10) php artisan livewire:publish --config
+11) Por ultimo, abrimos el archivo "config/livewire.php" y modificamos la linea 57 donde dice "'asset_url' => null," por "'asset_url' => 'http://127.0.0.1/jetstrap/public'," en este caso coloca la ruta de nuestro proyecto, en este caso lo llamamos "jetstrap" del paso 1.
